@@ -8,7 +8,7 @@ const typeDefs = gql`
     _id: ID!
     username: String!
     email: String!
-    bookCount: Integer
+    bookCount: String
 
     #array of book (type) 
     savedBooks: [Book]
@@ -28,7 +28,7 @@ const typeDefs = gql`
   }
 
   type Auth {
-    token: ID!
+    token: String
 
     #references the user (type)
     user: User

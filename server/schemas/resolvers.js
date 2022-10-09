@@ -18,8 +18,24 @@ const resolvers = {
   
   Mutation: {
 
-    //
+    // login (typeDefs)
     login: async (parent, { email, password }) => {
+        const profile = await Profile.findOne({ email });
+
+        // if the profile not found, will throw an alert message
+        if (!profile) {
+          throw new AuthenticationError('The email you entered did not match our records.');
+        }
+  
+        const correctPw = await profile.isCorrectPassword(password);
+        
+        // if the password is incorrect, will throw an alert message
+        if (!correctPw) {
+          throw new AuthenticationError('Invalid password. Please double-check and try again.');
+        }
+  
+        const token = signToken(profile);
+        return { token, profile };
     },
   },
 };

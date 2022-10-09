@@ -129,7 +129,7 @@ const SearchBooks = () => {
                 {book.image ? (
                   <Card.Img src={book.image} alt={`The cover for ${book.title}`} variant='top' />
                 ) : null}
-                <Card.Body>
+                <Card.Body className={css.cardBodyText}>
                   <Card.Title>{book.title}</Card.Title>
                   <p className='small'>Authors: {book.authors}</p>
                   <Card.Text>{book.description}</Card.Text>

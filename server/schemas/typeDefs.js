@@ -8,7 +8,7 @@ const typeDefs = gql`
     _id: ID
     username: String
     email: String
-    bookCount:
+    bookCount: Integer
 
     #array of book (type) 
     savedBooks: [Book]!

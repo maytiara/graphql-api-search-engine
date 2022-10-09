@@ -1,4 +1,4 @@
-const { AuthenticationError } = require('apollo-server-express');
+const { AuthenticationError } = require('apollo-server-express'); // this will return "code": "UNAUTHENTICATED"
 const { User } = require('../models');
 const { signToken } = require('../utils/auth');
 
@@ -20,23 +20,41 @@ const resolvers = {
 
     // login (typeDefs)
     login: async (parent, { email, password }) => {
+
+        // find the user by provided email add
         const profile = await Profile.findOne({ email });
 
-        // if the profile not found, will throw an alert message
+        // if the profile with the provided email add not found, will throw an alert message
         if (!profile) {
           throw new AuthenticationError('The email you entered did not match our records.');
         }
-  
         const correctPw = await profile.isCorrectPassword(password);
         
         // if the password is incorrect, will throw an alert message
         if (!correctPw) {
           throw new AuthenticationError('Invalid password. Please double-check and try again.');
         }
-  
+
+        // If email and password are correct, sign user into the application with a JWT
         const token = signToken(profile);
+
+        // this return an Auth obj (signed token) & user's (email & pwd)
         return { token, profile };
     },
+
+    // addUser (typeDefs)
+    addUser: async (parent, { username, email, password }) => {
+      // create the user
+      const user = await User.create({ username, email, password });
+
+      //JWT created and logged the user after creating a new account
+      const token = signToken(user);
+
+      if (!user) {
+        throw new Error('Something went wrong!');
+      }
+      return { token, profile };
+    }
   },
 };
 

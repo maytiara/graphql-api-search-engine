@@ -1,4 +1,4 @@
-const { AuthenticationError } = require('apollo-server-express'); // this will return "code": "UNAUTHENTICATED"
+const AuthenticationError = require('../utils/AuthenticationError'); // this will return "code": "UNAUTHENTICATED"
 const { User } = require('../models');
 const { signToken } = require('../utils/auth');
 
@@ -7,9 +7,9 @@ const resolvers = {
     
     // me (typeDefs)
     // By adding context to our query, we can retrieve the logged in user without specifically searching for them
-    me: async (parent, args, context) => {
+    me: async (parent, arg, context) => {
       if (context.user) {
-        return Profile.findOne({ _id: context.user._id });
+        return User.findOne({ _id: context.user._id });
       }
       throw new AuthenticationError('You need to be logged in!');
     },
@@ -22,13 +22,13 @@ const resolvers = {
     login: async (parent, { email, password }) => {
 
         // find the user by provided email add
-        const profile = await Profile.findOne({ email });
+        const user = await User.findOne({ email });
 
-        // if the profile with the provided email add not found, will throw an alert message
-        if (!profile) {
+        // if the user with the provided email add not found, will throw an alert message
+        if (!user) {
           throw new AuthenticationError('The email you entered did not match our records.');
         }
-        const correctPw = await profile.isCorrectPassword(password);
+        const correctPw = await user.isCorrectPassword(password);
         
         // if the password is incorrect, will throw an alert message
         if (!correctPw) {
@@ -36,25 +36,48 @@ const resolvers = {
         }
 
         // If email and password are correct, sign user into the application with a JWT
-        const token = signToken(profile);
+        const token = signToken(user);
 
         // this return an Auth obj (signed token) & user's (email & pwd)
-        return { token, profile };
+        return { token, user };
     },
 
     // addUser (typeDefs)
-    addUser: async (parent, { username, email, password }) => {
+    addUser: async (parent, { username, email, password }, context) => {
       // create the user
       const user = await User.create({ username, email, password });
 
       //JWT created and logged the user after creating a new account
       const token = signToken(user);
+      return { token, user };
+    },
 
-      if (!user) {
-        throw new Error('Something went wrong!');
+    // saveBook (typeDefs)
+    saveBook: async (parent, { authors, description, title, bookId, image, link }, context) => {
+      if (context.user) {
+        return User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $addToSet: { savedBooks: {authors, description, title, bookId, image,link } } },
+          {
+            new: true,
+            runValidators: true,
+          }
+        );
       }
-      return { token, profile };
-    }
+      throw new AuthenticationError('You need to be logged in!');
+    },
+    
+    // removeBook (typeDefs)
+    removeBook: async (parent, { bookId }, context) => {
+      if (context.user) {
+        return User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $pull: { savedBooks: { bookId } } },
+          { new: true }
+        );
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
   },
 };
 

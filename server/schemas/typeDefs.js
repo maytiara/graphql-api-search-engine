@@ -5,21 +5,21 @@ const typeDefs = gql`
   # fields required for search engine book
   
   type User {
-    _id: ID
-    username: String
-    email: String
+    _id: ID!
+    username: String!
+    email: String!
     bookCount: Integer
 
     #array of book (type) 
-    savedBooks: [Book]!
+    savedBooks: [Book]
   }
 
   type Book {
     #value returned fr. Google's book API
-    bookId:
+    bookId: String
     
     #array of strings, returns more than one author
-    authors: [String]!
+    authors: [String]
 
     description: String
     title: String
@@ -49,10 +49,10 @@ const typeDefs = gql`
     addUser(username: String!, email: String!, password: String!): Auth
 
     # this accepts authors, desc, title, image, link & bookId(ID) as (params) then returns User (type)
-    saveBook(authors: [String]!, description: String!, title: String!, bookId: ID!, image: String!, link: String!): User
+    saveBook(authors: [String], description: String, title: String, bookId: String!, image: String, link: String): User
 
     # this accepts bookId(ID) as (params) then returns User (type)
-    removeBook(bookId: ID!): User
+    removeBook(bookId: String!): User
   }
 
 `;

@@ -8,13 +8,19 @@ const typeDefs = gql`
     _id: ID
     username: String
     email: String
-    bookCount: 
+    bookCount:
+
+    #array of book (type) 
     savedBooks: [Book]!
   }
 
   type Book {
+    #value returned fr. Google's book API
     bookId:
+    
+    #array of strings, returns more than one author
     authors: [String]!
+
     description: String
     title: String
     image: String
@@ -22,7 +28,10 @@ const typeDefs = gql`
   }
 
   type Auth {
+    token: ID!
 
+    #references the user (type)
+    user: User
   }
 
   type Query {

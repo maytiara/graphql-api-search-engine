@@ -3,14 +3,7 @@ const { gql } = require('apollo-server-express');
 const typeDefs = gql`
   
   # fields required for search engine book
-  type Query {
-
-  }
-
-  type Mutation {
-    
-  }
-
+  
   type User {
 
   }
@@ -20,8 +13,20 @@ const typeDefs = gql`
   }
 
   type Auth {
+
+  }
+
+  type Query {
+    me: User
+  }
+
+  type Mutation {
+
+    # this accepts an email & pwd as (params) then returns Auth (type)
+    login(email: String!, passwords: String!): Auth
     
   }
+
 `;
 
 module.exports = typeDefs;

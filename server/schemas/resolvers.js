@@ -1,4 +1,4 @@
-const AuthenticationError = require('../utils/AuthenticationError'); // this will return "code": "UNAUTHENTICATED"
+const AuthenticationError = require('apollo-server-express'); // this will return "code": "UNAUTHENTICATED"
 const { User } = require('../models');
 const { signToken } = require('../utils/auth');
 

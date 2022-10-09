@@ -5,7 +5,11 @@ const typeDefs = gql`
   # fields required for search engine book
   
   type User {
-
+    _id: ID
+    username: String
+    email: String
+    bookCount: 
+    savedBooks: [Book]!
   }
 
   type Book {

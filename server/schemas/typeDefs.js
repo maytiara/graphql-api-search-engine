@@ -22,9 +22,11 @@ const typeDefs = gql`
 
   type Mutation {
 
-    # this accepts an email & pwd as (params) then returns Auth (type)
-    login(email: String!, passwords: String!): Auth
+    # this accepts email & pwd as (params) then returns Auth (type)
+    login(email: String!, password: String!): Auth
     
+    # this accepts username, email & pwd as (params) then returns Auth (type)
+    addUser(username: String!, email: String!, password: String!): Auth
   }
 
 `;

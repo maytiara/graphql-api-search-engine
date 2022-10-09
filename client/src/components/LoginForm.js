@@ -58,6 +58,7 @@ const LoginForm = (props) => {
             type='text'
             placeholder='Your email'
             name='email'
+            className='mt-1 mb-1 w-100 btn-lg bg-light btn-outline-secondary text-dark rounded-pill'
             onChange={handleChange}
             value={formState.email}
             required
@@ -71,6 +72,7 @@ const LoginForm = (props) => {
             type='password'
             placeholder='Your password'
             name='password'
+            className='mt-1 mb-1 w-100 btn-lg bg-light btn-outline-secondary text-dark rounded-pill'
             onChange={handleChange}
             value={formState.password}
             required
@@ -80,6 +82,7 @@ const LoginForm = (props) => {
         <Button
           disabled={!(formState.email && formState.password)}
           type='submit'
+          className='btn-lg btn-warning text-dark mt-1 mb-1 rounded-pill'
           variant='success'>
           Submit
         </Button>

@@ -22,11 +22,13 @@ module.exports = {
       token = token.split(' ').pop().trim();
     }
 
+    // if the token is not available, it will return the req but if the token exist then verify the jwt..
     if (!token) {
       return req;
     }
 
-    // verify token and add the decoded user's data to the request so it can be accessed in the resolver
+    // ..verify token and add the decoded user's data to the request so it can be accessed in the resolver
+    // (decrypt) == .verify
     try {
       const { data } = jwt.verify(token, secret, { maxAge: expiration });
       req.user = data;
@@ -37,9 +39,12 @@ module.exports = {
     // this returns the data in graphQL
     return req;
   },
+
+  // helper function to encrypt user's data
   signToken: function ({ username, email, _id }) {
     const payload = { username, email, _id };
 
+    // (encrypt) == .sign
     return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
   },
 };

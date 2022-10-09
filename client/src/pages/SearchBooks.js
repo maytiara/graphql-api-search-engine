@@ -97,10 +97,17 @@ const SearchBooks = () => {
                   type='text'
                   size='lg'
                   placeholder='Search for a book'
+                  className='mt-1 mb-1 w-100 btn btn-lg bg-light rounded-pill'
+                  aria-label='Searchbox for a book'
                 />
               </Col>
               <Col xs={12} md={4}>
-                <Button type='submit' variant='success' size='lg'>
+                <Button 
+                  type='submit' 
+                  variant='success' 
+                  size='lg'
+                  className='mt-1 mb-1 rounded-pill'
+                  >
                   Submit Search
                 </Button>
               </Col>

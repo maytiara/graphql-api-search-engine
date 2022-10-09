@@ -1,8 +1,22 @@
 import React from 'react';
+
+// for GraphQL API endpoint
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  createHttpLink,
+} from '@apollo/client';
+
+// for JWT token = Middleware
+import { setContext } from '@apollo/client/link/context';
+
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SearchBooks from './pages/SearchBooks';
 import SavedBooks from './pages/SavedBooks';
 import Navbar from './components/Navbar';
+
+
 
 function App() {
   return (

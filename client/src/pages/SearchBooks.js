@@ -97,7 +97,7 @@ const SearchBooks = () => {
                   type='text'
                   size='lg'
                   placeholder='Search for a book'
-                  className='mt-1 mb-1 w-100 btn btn-lg bg-light rounded-pill'
+                  className='mt-1 mb-1 w-100 btn-lg bg-light btn-outline-dark text-dark rounded-pill'
                   aria-label='Searchbox for a book'
                 />
               </Col>
@@ -106,7 +106,7 @@ const SearchBooks = () => {
                   type='submit' 
                   variant='success' 
                   size='lg'
-                  className='mt-1 mb-1 rounded-pill'
+                  className='mt-1 mb-1 rounded-pill btn-warning'
                   >
                   Submit Search
                 </Button>
@@ -136,7 +136,7 @@ const SearchBooks = () => {
                   {Auth.loggedIn() && (
                     <Button
                       disabled={savedBookIds?.some((savedBookId) => savedBookId === book.bookId)}
-                      className='btn-block btn-info'
+                      className='btn-block btn-warning mt-1 mb-1 rounded-pill'
                       onClick={() => handleSaveBook(book.bookId)}>
                       {savedBookIds?.some((savedBookId) => savedBookId === book.bookId)
                         ? 'This book has already been saved!'

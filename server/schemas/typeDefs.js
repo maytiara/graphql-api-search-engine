@@ -35,6 +35,8 @@ const typeDefs = gql`
   }
 
   type Query {
+
+    #returns user (type)
     me: User
   }
 

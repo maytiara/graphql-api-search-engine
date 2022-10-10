@@ -43,7 +43,7 @@ const resolvers = {
     },
 
     // addUser (typeDefs)
-    addUser: async (parent, { username, email, password }, context) => {
+    addUser: async (parent, { username, email, password }) => {
       // create the user
       const user = await User.create({ username, email, password });
 

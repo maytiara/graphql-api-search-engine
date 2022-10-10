@@ -8,13 +8,11 @@
     "npm": "8.17.0"
   },
   "scripts": {
-    "start:dev": "concurrently \"cd server && npm run server\" \"cd client && npm run dev\"",
-    "start": "npm run build && cd server && node server.js",
-    "server": "cd server nodemon server.js --ignore client",
+    "start": "node server/server.js",
+    "develop": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
+    "install": "cd server && npm i && cd ../client && npm i",
     "build": "cd client && npm run build",
-    "install": "cd client && npm install && cd ../server && npm install",
-    "client": "cd client && npm start",
-    "prod": "if-env NODE_ENV=production && npm run start:dev"
+    "prod": "if-env NODE_ENV=production && npm run develop"
 
   },
   "keywords": [],

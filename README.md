@@ -35,16 +35,13 @@ The app was built using **MERN stack** functionalities with REACT (frontend), Mo
 - Live url in action of the app
 - Overview demo using Apollo Provider Sandbox that runs for GraphQL API
 ```
-<br />
 
 #### Live url demo
 
 ![]()
 <br />
-<br />
 
 #### Overview of the app using Apollo Provider
-<br />
 <br />
 
 ## Featured functionalities

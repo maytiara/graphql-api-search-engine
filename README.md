@@ -16,11 +16,8 @@ The app was built using **MERN stack** functionalities with REACT (frontend), Mo
     - authentication middleware
     - using Apollo provider to communicate with Apollo Server
 <br />
-<br />
 
 - Deployed Link using Heroku: [Book Search Engine App](https://g-searchengine.herokuapp.com/)
-<br />
-<br />
 <br />
 
 ## Table of Contents
@@ -31,7 +28,6 @@ The app was built using **MERN stack** functionalities with REACT (frontend), Mo
 3. [Feedback or Contribute](#feedback-or-contribute)
 4. [License](#license)
 5. [Reference](#reference)
-<br />
 <br />
 
 ## Demo
@@ -70,11 +66,9 @@ The app was built using **MERN stack** functionalities with REACT (frontend), Mo
 - Using useMutation, useState
 </details>
 <br />
-<br />
 
 ## Feedback or Contribute
 ***If you have any feedback or suggestion feel free to send an email,*** codingowl898@gmail.com
-<br />
 <br />
 
 ## License

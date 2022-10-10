@@ -22,6 +22,7 @@ package-lock.json
 node_modules
 .npmrc
 .env
+Procfile
 
 
 npm-debug.log*

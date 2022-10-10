@@ -1,19 +1,13 @@
-// see SignupForm.js for comments
 import React, { useState } from 'react';
-import { Form, Button, Alert } from 'react-bootstrap';
-
-import Auth from '../utils/auth';
-
-// for LOGIN_USER mutation functionality
+import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
 
+import Auth from '../utils/auth';
+
 const LoginForm = (props) => {
   const [formState, setFormState] = useState({ email: '', password: '' });
-  const [login] = useMutation(LOGIN_USER);
-
-  const [validated] = useState(false);
-  const [showAlert, setShowAlert] = useState(false);
+  const [login, { error, data }] = useMutation(LOGIN_USER);
 
   // update state based on form input changes
   const handleChange = (event) => {
@@ -38,7 +32,7 @@ const LoginForm = (props) => {
     } catch (e) {
       console.error(e);
     }
-    
+
     // clear form values
     setFormState({
       email: '',
@@ -47,47 +41,53 @@ const LoginForm = (props) => {
   };
 
   return (
-    <>
-      <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
-        <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
-          Something went wrong with your login credentials!
-        </Alert>
-        <Form.Group>
-          <Form.Label htmlFor='email'>Email</Form.Label>
-          <Form.Control
-            type='text'
-            placeholder='Your email'
-            name='email'
-            className='mt-1 mb-1 w-100 btn-lg bg-light btn-outline-secondary text-dark rounded-pill'
-            onChange={handleChange}
-            value={formState.email}
-            required
-          />
-          <Form.Control.Feedback type='invalid'>Email is required!</Form.Control.Feedback>
-        </Form.Group>
+    <main className="flex-row justify-center mb-4">
+      <div className="col-12 col-lg-10">
+        <div className="card">
+          <h4 className="card-header bg-dark text-light p-2">Login</h4>
+          <div className="card-body">
+            {data ? (
+              <p>
+                Success! You may now head{' '}
+                <Link to="/">back to the homepage.</Link>
+              </p>
+            ) : (
+              <form onSubmit={handleFormSubmit}>
+                <input
+                  className="mt-1 mb-1 w-100 btn-lg bg-light btn-outline-white text-dark rounded-pill"
+                  placeholder="Your email"
+                  name="email"
+                  type="email"
+                  value={formState.email}
+                  onChange={handleChange}
+                />
+                <input
+                  className="mt-1 mb-1 w-100 btn-lg bg-light btn-outline-white text-dark rounded-pill"
+                  placeholder="******"
+                  name="password"
+                  type="password"
+                  value={formState.password}
+                  onChange={handleChange}
+                />
+                <button
+                  className='btn-lg btn-warning text-dark mt-1 mb-1 rounded-pill'
+                  style={{ cursor: 'pointer' }}
+                  type="submit"
+                >
+                  Submit
+                </button>
+              </form>
+            )}
 
-        <Form.Group>
-          <Form.Label htmlFor='password'>Password</Form.Label>
-          <Form.Control
-            type='password'
-            placeholder='Your password'
-            name='password'
-            className='mt-1 mb-1 w-100 btn-lg bg-light btn-outline-secondary text-dark rounded-pill'
-            onChange={handleChange}
-            value={formState.password}
-            required
-          />
-          <Form.Control.Feedback type='invalid'>Password is required!</Form.Control.Feedback>
-        </Form.Group>
-        <Button
-          disabled={!(formState.email && formState.password)}
-          type='submit'
-          className='btn-lg btn-warning text-dark mt-1 mb-1 rounded-pill'
-          variant='success'>
-          Submit
-        </Button>
-      </Form>
-    </>
+            {error && (
+              <div className="my-3 p-3 bg-danger text-white">
+                {error.message}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </main>
   );
 };
 
